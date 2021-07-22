@@ -11,7 +11,7 @@ var questionsPrompt = () => {
             name: "name",
             message: "Please enter your manager's name. (Required)",     // manager name
             validate: nameInput => {
-                if (nameInput === String) {
+                if (nameInput) {
                     return true;
                 } else {
                     console.log("You must enter your manager's name.")
@@ -24,7 +24,7 @@ var questionsPrompt = () => {
             name: "id",
             message: "Please enter your manager's ID number (Required)",            // manager id
             validate: idInput => {
-                if (idInput === Number) {
+                if (idInput) {
                     return true;
                 } else {
                     console.log("You must enter your manager's ID number.");
@@ -37,7 +37,7 @@ var questionsPrompt = () => {
             name: "email",
             message: "Please enter your manager's email address (Required)",    // manager email
             validate: emailInput => {
-                if (emailInput === String.includes("@")) {
+                if (emailInput) {
                     return true;
                 } else {
                     console.log("You must enter your manager's email address.")
@@ -50,7 +50,7 @@ var questionsPrompt = () => {
             name: "officeNumber",
             message: "Please enter your manager's office number. (Required)",     // manager office number
             validate: officeNumberInput => {
-                if (officeNumberInput === Number) {
+                if (officeNumberInput) {
                     return true;
                 } else {
                     console.log("You must enter your manager's office number");
@@ -58,4 +58,10 @@ var questionsPrompt = () => {
             }
         }
     ])
-}
+        .then(managerInfo) = function () {
+            let { nameinput, idInput, emailInput, officeNumberInput } = managerInfo;
+            let manager = new Manager /// need to create Manager class first (in lib/Employee.js??)
+        }
+};
+
+// questionsPrompt();
