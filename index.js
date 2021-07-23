@@ -60,7 +60,7 @@ var questionsPrompt = () => {
     ])
         .then(managerInfo) = function () {
             let { nameinput, idInput, emailInput, officeNumberInput } = managerInfo;
-            let manager = new Manager /// need to create Manager class first (in lib/Employee.js??)
+            // let manager = new Manager /// need to create Manager class first (in lib/Employee.js??)
             /// push manager into team array??
         }
 };

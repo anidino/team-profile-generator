@@ -9,6 +9,25 @@
 </head>
 
 <body>
+<header class="header" id="header">
+<h1 class="title" id="title">Team Profile Generator</h1>
+<!----------------------------------------------------BEGIN START OF CARDS HERE------------------------------------------------------------------>
+<div class="content col-sm">
+    <div class="row">
+        <div class="containerTwo" id="reponse-container">
+            <h4 class="name">${name}</h6>
+                <h6 class="id">${id}</h6>
+                <h6 class="email">${email}</h6>
+                <h6 class="officeNumber">${officeNumber}</h6>
+                <h6 class="github">${github}</h6>
+                <h6 class="school" id="school">${school}</h6>
+        </div>
+    </div>
+
+
+</header>
+    
+
 
 </body>
 
