@@ -38,6 +38,9 @@ THEN I exit the application, and the HTML is generated
 
 For best video clarity, click the settings icon at the bottom of the video and change to 720p if it does not automatically load that way. 
 
+### ScreenShot of HTML page loaded into browser 
+![MyteamScreenshot](https://user-images.githubusercontent.com/84213096/126885795-6a104b92-0a4c-4a3c-ab42-c0e75097201d.jpg)
+
 
 
 
