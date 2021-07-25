@@ -36,7 +36,7 @@ THEN I exit the application, and the HTML is generated
 
 [Video Demonstrating Functionality](https://drive.google.com/file/d/1_FbTZhPr8RUTsZ5Exz4gVPSpIdUl8wC9/view)
 
-For best clarity, click the settings icon at the bottom of the video and change to 720p if it does not automatically load that way. 
+For best video clarity, click the settings icon at the bottom of the video and change to 720p if it does not automatically load that way. 
 
 
 
