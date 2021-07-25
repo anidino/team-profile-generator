@@ -2,22 +2,39 @@
 
 //write html for each of 3 roles
 
-const makeManager = function (manager) {
+const createManager = function (data) {
   return `
 <div class="card col-6 border-dark bg-light shadow profile top-buffer" style="width: 18rem" id="employee">
 <div class="card-header mb-3 text-light" style="background-color: rgb(255, 0, 85)">
-    <h4>${manager.name}</h4>
+    <h4>${data.name}</h4>
     <h5>Manager</h5>
   </div>
   <div class="card-body">
 <ul class="list-group list-group-flush">
-  <li class="list-group-item p-2">ID: ${manager.id} </li>
-  <li class="list-group-item p-2">Email: ${manager.email}</li>
-  <li class="list-group-item p-2">Office Number: ${manager.officeNumber}</li>
+  <li class="list-group-item p-2">ID: ${data.id} </li>
+  <li class="list-group-item p-2"><a href = "mailto: ${data.email}">Email: ${data.email}</a> </li>
+  <li class="list-group-item p-2">Office Number: ${data.officeNumber}</li>
 </ul>
 </div>
 </div>`;
-}
+};
+
+const createEngineer = function (data) {
+  return `
+  <div class="card border-dark col-6 bg-light shadow profile top-buffer" style="width: 18rem" id="employee3">
+  <div class="card-header mb-3 text-light" style="background-color: rgb(0, 255, 179);">
+      <h4>${data.name}</h4>
+      <h5>Engineer</h5>
+  </div>
+  <div class="card-body">
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item p-2">ID: ${data.id}</li>
+          <li class="list-group-item p-2"><a href = "mailto: ${data.email}">Email: ${data.email}</a></li>
+          <li class="list-group-item p-2">Github: ${data.github}</li>
+      </ul>
+  </div>
+</div> `
+};
 
 // getRole = function (data) {
 //     const employee = data[0];
@@ -28,73 +45,58 @@ const makeManager = function (manager) {
 //         myTeam.push(manager);
 //     }
 //     const allEmployees = myTeam.join('');
-//     const pageHtmlEl = genPage(allEmployees)
-//     return pageHtmlEl;
+//     const pageEl = genPage(allEmployees)
+//     return pageEl;
 // }
-const makeIntern = function () {
+const createIntern = function (data) {
   return `
   <div class="card border-dark col-6 bg-light shadow profile top-buffer" style="width: 18rem" id="employee2" >
     <div class="card-header mb-3 text-light" style="background-color: rgb(0, 189, 196);">
-      <h4>${intern.name}</h4>
+      <h4>${data.name}</h4>
       <h5>Intern</h5>
     </div>
     <div class="card-body">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item p-2">ID: ${intern.id}</li>
-        <li class="list-group-item p-2">Email: ${intern.email}</li>
-        <li class="list-group-item p-2">School: ${intern.school}</li>
+        <li class="list-group-item p-2">ID: ${data.id}</li>
+        <li class="list-group-item p-2"><a href = "mailto: ${data.email}">Email: ${data.email}</a> </li>
+        <li class="list-group-item p-2">School: ${data.school}</li>
       </ul>
     </div>
   </div >`
 }
 
-const makeEngineer = function () {
-  return `
-  <div class="card border-dark col-6 bg-light shadow profile top-buffer" style="width: 18rem" id="employee3">
-  <div class="card-header mb-3 text-light" style="background-color: rgb(0, 255, 179);">
-      <h4>${engineer.name}</h4>
-      <h5>Engineer</h5>
-  </div>
-  <div class="card-body">
-      <ul class="list-group list-group-flush">
-          <li class="list-group-item p-2">ID: ${engineer.id}</li>
-          <li class="list-group-item p-2">Email: ${engineer.email}</li>
-          <li class="list-group-item p-2">Github: ${engineer.github}</li>
-      </ul>
-  </div>
-</div> `
-};
-
-
-getRole = (team) => {
-  let teamArray = [];
-  console.log(team);
 
 
 
-  for (let i = 0; i < team.length; i++) {
-    const person = team[i];
+getRole = (data) => {
+  const team = [];
+
+
+
+
+  for (let i = 0; i < data.length; i++) {
+    const person = data[i];
     const role = person.getRole();
-    console.log(role);
+    // console.log(role);
 
 
     if (role === "Manager") {
-      const manager = makeManager(person);
-      teamArray.push(manager);
+      const manager = createManager(person);
+      team.push(manager);
     } else if (role === "Engineer") {
-      const engineer = makeEngineer(person);
-      teamArray.push(engineer);
+      const engineer = createEngineer(person);
+      team.push(engineer);
     } else if (role === "Intern") {
-      const intern = makeIntern(person);
-      teamArray.push(intern);
+      const intern = createIntern(person);
+      team.push(intern);
     }
   }
-  const allEmployees = teamArray.join("");
-  const pageHtmlEl = genPage(allEmployees);
-  return pageHtmlEl;
+  const allEmployees = team.join("");
+  const pageEl = genPage(allEmployees);
+  return pageEl;
 };
 
-function genPage(pageHtmlEl) {
+const genPage = function (pageEl) {
   return `
   <!DOCTYPE html>
 <html lang="en">
@@ -112,10 +114,12 @@ function genPage(pageHtmlEl) {
     <title>Profile Generator</title>
   </head>
   <body>
-    <header>My Team</header>
+    <header>
+    <h1>My Team</h1>
+    </header>
     <div class="container">
         <div class="row" id="page">
-        ${pageHtmlEl}
+        ${pageEl}
         </div>
         </div>
       </body>

@@ -73,17 +73,17 @@ var questionsPrompt = () => {
             // console.log(myTeam);
             console.log(myTeam);
 
-            nextQuestions();
+            // nextQuestions();
 
         })
 
 
 };
 function nextQuestions() {
-    inquirer.prompt([
+    return inquirer.prompt([
         {
             name: "role",
-            type: "checkbox",
+            type: "list",
             message: "Please select the role of the employee you're adding.",
             choices: ["Intern", "Engineer"]
 
@@ -92,28 +92,10 @@ function nextQuestions() {
 
 
         },
-        {
-            name: "github",
-            type: "input",
-            message: "Please enter github of this Engineer (Required)",
-            when: (answers) => answers.role[0] == "Engineer",
-            validate: githubInput => {
-                if (githubInput) {
-                    return true;
-                } else {
-                    console.log("You must enter the employee's Github username")
-                }
-            }
-        },
-        // {
-        //     type: "checkbox",
-        //     name: "role",
-        //     message: "Please select the role of the employee you are adding",
-        //     choices: ["Intern", "Engineer"]
-        // },
+
 
         {
-            /// use inquirer boolean method "when"?? To make sure this is only asked if user selects engineer? same with intern's "school"
+            /// use inquirer boolean method "when" To make sure this is only asked if user selects engineer? same with intern's "school"
 
 
             type: "input",
@@ -175,7 +157,7 @@ function nextQuestions() {
             type: "input",
             name: "school",
             message: "Please enter this intern's school (Required)",
-            when: (answers) => answers.role[0] === "Intern",
+            when: (answers) => answers.role === "Intern",
             validate: schoolInput => {
                 if (schoolInput) {
                     return true;
@@ -188,7 +170,8 @@ function nextQuestions() {
             type: "confirm",
             name: "addMore",
             message: "Would you like to continue adding team members? (Required)",
-            /// how to do if/else statement that will loop user back through menu? 
+            default: false,
+
             validate: addmoreConfirm => {
                 if (addmoreConfirm === true) {
                     return true;
@@ -198,161 +181,74 @@ function nextQuestions() {
             }
         }
     ])
-        .then(newEmployeeInfo => {
-            // let employee = new Employee(newEmployeeInfo.name, newEmployeeInfo.id, newEmployeeInfo.email, newEmployeeInfo.githubInput);
-            // myTeam.push(employee);
-
-            // console.log(myTeam);
-
-            // let intern = new Intern(newEmployeeInfo.role[0], newEmployeeInfo.name, newEmployeeInfo.id, newEmployeeInfo.email, newEmployeeInfo.school);
-
-
-
-
-            if (newEmployeeInfo.role[0] === "Intern") {
-                let intern = new Intern(newEmployeeInfo.name, newEmployeeInfo.id, newEmployeeInfo.email, newEmployeeInfo.school);
-                console.log(intern);
-            } else if (newEmployeeInfo.role[0] === "Engineer") {
-                let engineer = new Engineer(newEmployeeInfo.name, newEmployeeInfo.id, newEmployeeInfo.email, newEmployeeInfo.github);
-                console.log(engineer);
+        .then(employeeResponse => {
+            const { role, name, id, email, school, github, addMore } = employeeResponse;
+            let newEmployee;
+            if (role === "Engineer") {
+                newEmployee = new Engineer(name, id, email, github);
+            } else if (role === "Intern") {
+                newEmployee = new Intern(name, id, email, school);
             }
-            myTeam.push(intern);
-            myTeam.push(engineer);
-            console.log(myTeam);
 
-            // if (addMore) {
-            //     return nextQuestions();
-            // } else {
-            //     return myTeam;
-            // }
+            myTeam.push(newEmployee);
 
-
-
-
-
-            // nextQuestions();
-
-        })
-
-}
-
-
-// questionsPrompt();
-
-function writeToFile(filename, data) {
-    fs.writeFile(filename, data, error => {
-        if (error) {
-            return console.log(error);
-        } else {
-            console.log("Your team has been been assembled!! Check out dist/index.html to see the results!");
-        }
-    })
+            if (addMore) {
+                return nextQuestions(myTeam);
+            } else {
+                return myTeam;
+            }
+        });
 };
 
-function init() {
-    questionsPrompt()
-        .then(userAnswers => {
-            let samplePage = generatePage(userAnswers);
-            console.log(samplePage);
-            writeToFile("./dist/index.html", samplePage);
-        })
-}
+const printPage = function (page) {
+    fs.writeFile("./dist/index.html", page, (err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Your team has been successfully created! Check dist/index.html to see!");
+        }
+    });
+};
 
 
-init();
 
+questionsPrompt()
+    .then(nextQuestions)
+    .then(myTeam => {
+        return generatePage(myTeam);
+    })
+    .then((page) => {
+        printPage(page);
 
-/// add function to present user "menu" of options to add either intern or engineer to the team 
-// these question prompts need to be wrapped in above mentioned function 
-// return inquirer.prompt([
-
-// const printPage = function (pageHTML) {
-//     fs.writeFile("./dist/index.html", pageHTML, (err) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log("Your page is being generated! Check out dist/index.html to see your team!");
-//         }
-//     });
-// };
-
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
 
 
 
+    //             let { role, github, name, id, email, school, addMore } = newEmployeeInfo;
+    //             if (newEmployeeInfo.role === "Intern") {
+    //                 let intern = new Intern(name, id, email, school);
+    //                 console.log(intern);
+    //                 myTeam.push(intern);
+    //             } else if (newEmployeeInfo.role === "Engineer") {
+    //                 let engineer = new Engineer(name, id, email, github);
+    //                 console.log(engineer);
+    //                 myTeam.push(engineer);
+    //             }
+
+    //             console.log(myTeam);
+    //             return myTeam;
+
+    //         })
 
 
-
-
-// const writeToPage = data => {
-//     fs.writeFile("./dist/index.html", data, err => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log("Your team has been assembled! Check out dist/index.html to see!")
-//         }
-//     })
-// };
-
-// writeToPage();
-
-
-
-// questionsPrompt()
-//     .then(nextQuestions())
-//     .then(myTeam => {
-//         return generatePage(myTeam);
-//     })
-//     .then(pageHTML => {
-//         return printPage(pageHTML);
-//     })
-//     .catch(err => {
-//         console.log(err)
-//     });
+    // }
 
 
 
 
 
-
-
-
-
-
-
-
-// .then(myTeam => {
-    //     return generatePage(myTeam)
-    // })
-    // .then(samplePage => {
-    //     writeToPage(samplePage);
-
-
-    // })
-    // .catch(err => {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    // })
-
-
-
-
-
-
-
-// init();
-
-
-
-
-// const writeToPage = function (samplePage) {
-//     fs.writeFile("./dist/index.html", samplePage, (err) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log("Your page has been successfully generated! Check out dist/index.html!");
-//         }
-//     });
-// }
 
