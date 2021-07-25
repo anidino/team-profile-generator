@@ -26,11 +26,11 @@ THEN I exit the application, and the HTML is generated
 
 ## Description 
 
-###### For this application, I used Node.js, the Inquirer package, as well as the Jest package for testing purposes. I used the specified parent class, "Employee" and the asked for methods and properties in the assignment description. Working with several files at once was a trying but great learning experience. 
+For this application, I used Node.js, the Inquirer package, as well as the Jest package for testing purposes. I used the specified parent class, "Employee" and the asked for methods and properties in the assignment description. Working with several files at once was a trying but great learning experience. 
 
 ## Installation 
 
-###### To gather neccessary packages for this assignment, I first ran npm init in the command line in the root of my project directory. I then installed Jest by typing npm install jest --save-dev in the command line. Lastly, I installed Inquirer by typing npm install inquirer.  
+To gather neccessary packages for this assignment, I first ran npm init in the command line in the root of my project directory. I then installed Jest by typing npm install jest --save-dev in the command line. Lastly, I installed Inquirer by typing npm install inquirer.  
 
 
 
