@@ -30,24 +30,13 @@ const createEngineer = function (data) {
       <ul class="list-group list-group-flush">
           <li class="list-group-item p-2">ID: ${data.id}</li>
           <li class="list-group-item p-2"><a href = "mailto: ${data.email}">Email: ${data.email}</a></li>
-          <li class="list-group-item p-2">Github: ${data.github}</li>
+          <li class="list-group-item p-2"><a href = "https://github.com/${data.github}" target = "_blank">Github: ${data.github}</a> </li>
       </ul>
   </div>
 </div> `
 };
 
-// getRole = function (data) {
-//     const employee = data[0];
-//     const role = employee.getRole();
-//     if (role === "Manager") {
-//         const manager = makeManager(employee)
 
-//         myTeam.push(manager);
-//     }
-//     const allEmployees = myTeam.join('');
-//     const pageEl = genPage(allEmployees)
-//     return pageEl;
-// }
 const createIntern = function (data) {
   return `
   <div class="card border-dark col-6 bg-light shadow profile top-buffer" style="width: 18rem" id="employee2" >
